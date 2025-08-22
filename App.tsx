@@ -4,8 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { LoginView } from 'views/LoginView';
-import { MenuView } from 'views/MenuView';
+import { LoginView } from './src/views/LoginView';
+import { MenuView } from './src/views/MenuView';
 
 const Stack = createNativeStackNavigator();
 
