@@ -1,30 +1,17 @@
-import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { LoginViewModel } from '~/viewmodel/LoginViewModel';
 
 import { Text, TouchableOpacity, View, TextInput, Image } from 'react-native';
 
 export function LoginView({ navigation }: any) {
 
-    const loginSchema = yup.object().shape({
-        user: yup.string().email("E-mail inválido!").required('Usuário é obrigatório!'),
-        senha: yup.string().required('Senha é obrigatória!'),
-    });
+    const { loginSchema, onSubmit } = LoginViewModel({ navigation });
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema)
     });
-
-    const onSubmit = async (data: any) => {
-        const validacao = true
-
-        if (validacao) {
-            navigation.navigate('Menu');
-        }
-        else {
-            console.error('Usuário ou senha inválidos');
-        }
-    };
 
     return (
         <View className='flex-1 justify-center items-center bg-gray-900 pr-5 pl-5 gap-10'>
