@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LoginView } from './src/views/LoginView';
 import { MenuView } from './src/views/MenuView';
+import { CadastroView } from './src/views/CadastroView';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
               },
             }} 
           />
+          <Stack.Screen name="Cadastro" component={CadastroView} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
