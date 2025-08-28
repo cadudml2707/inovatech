@@ -21,8 +21,10 @@ export default function App() {
             component={MenuView} 
             options={{
               headerStyle: {
-                backgroundColor: '#3b82f6',
+                backgroundColor: '#1F2937',
               },
+              headerBackVisible: false,
+              headerTintColor: '#fff'
             }} 
           />
           <Stack.Screen name="Cadastro" component={CadastroView} options={{ headerShown: false }} />
