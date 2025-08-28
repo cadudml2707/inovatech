@@ -15,19 +15,32 @@ export default function App() {
     <SafeAreaView className='flex-1'>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Login'>
-          <Stack.Screen name="Login" component={LoginView} options={{ headerShown: false }} />
-          <Stack.Screen 
-            name="Menu" 
-            component={MenuView} 
+          <Stack.Screen
+            name="Login"
+            component={LoginView}
+            options={{
+              headerShown: false,
+              animation: 'slide_from_left'
+            }} />
+          <Stack.Screen
+            name="Menu"
+            component={MenuView}
             options={{
               headerStyle: {
                 backgroundColor: '#1F2937',
               },
               headerBackVisible: false,
-              headerTintColor: '#fff'
-            }} 
+              headerTintColor: '#fff',
+              animation: 'fade'
+            }}
           />
-          <Stack.Screen name="Cadastro" component={CadastroView} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="Cadastro"
+            component={CadastroView}
+            options={{
+              headerShown: false,
+              animation: 'slide_from_right'
+            }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
