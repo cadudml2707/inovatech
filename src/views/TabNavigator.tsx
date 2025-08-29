@@ -13,7 +13,7 @@ export function TabNavigator() {
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
+                    let iconName: any;
 
                     if (route.name === 'Emoções') {
                         iconName = focused ? 'happy' : 'happy-outline';
@@ -25,11 +25,11 @@ export function TabNavigator() {
 
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'lime', 
-                tabBarInactiveTintColor: 'gray',   
+                tabBarActiveTintColor: 'lime',
+                tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
-                    backgroundColor: '#1F2937', 
-                    borderTopWidth: 0,          
+                    backgroundColor: '#1F2937',
+                    borderTopWidth: 0,
                 },
                 headerStyle: {
                     backgroundColor: '#1F2937',
@@ -44,14 +44,14 @@ export function TabNavigator() {
                     },
                     headerTintColor: '#fff',
                 }} />
-            <Tab.Screen name="Dashboard" component={DashboardView}
+            <Tab.Screen name="Frases" component={FrasesView}
                 options={{
                     headerStyle: {
                         backgroundColor: '#1F2937',
                     },
                     headerTintColor: '#fff',
                 }} />
-            <Tab.Screen name="Frases" component={FrasesView}
+            <Tab.Screen name="Dashboard" component={DashboardView}
                 options={{
                     headerStyle: {
                         backgroundColor: '#1F2937',
