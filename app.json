@@ -31,6 +31,11 @@
         "backgroundColor": "#111827"
       },
       "package": "com.cadudml.inovatech"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3a9e2055-5d30-4d58-8edb-fd7eb63c19b8"
+      }
     }
   }
 }
