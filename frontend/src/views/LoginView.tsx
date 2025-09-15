@@ -4,6 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginViewModel } from '~/viewmodel/LoginViewModel';
 
 import { Text, TouchableOpacity, View, TextInput, Image } from 'react-native';
+import { useEffect } from 'react';
+import axios from 'axios';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_API_URL;
 
 export function LoginView({ navigation }: any) {
 
@@ -12,6 +15,19 @@ export function LoginView({ navigation }: any) {
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema)
     });
+    
+    useEffect(() => {
+        const buscaTeste = async () => {
+            try {
+                const teste = await axios.get(API_URL + '/');
+                console.log(teste.data);
+            } catch (error) {
+                console.error(error);
+                console.log("Erro ao conectar com o backend");
+            }
+        }
+        buscaTeste(); 
+    }, []);
 
     return (
         <View className='flex-1 justify-center items-center bg-gray-900 pr-5 pl-5 gap-10'>
