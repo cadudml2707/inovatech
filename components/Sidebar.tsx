@@ -5,14 +5,12 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard,
-  Bell,
   CalendarDays,
   BookOpen,
   MessageCircle,
   Leaf,
   ChevronRight,
   X,
-  Menu,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -32,14 +30,13 @@ const NAV_GROUPS = [
   {
     label: "Monitoramento",
     items: [
-      { icon: <Bell size={22} />, label: "Alertas", href: "/" },
       { icon: <CalendarDays size={22} />, label: "Calendário Agrícola", href: "/calendario-agricola" },
     ],
   },
   {
     label: "Conhecimento",
     items: [
-      { icon: <BookOpen size={22} />, label: "Aprender", href: "/" },
+      { icon: <BookOpen size={22} />, label: "Aprender", href: "/aprender" },
     ],
   },
 ];
@@ -152,17 +149,6 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Botão hamburguer mobile */}
-      <button
-        className="lg:hidden fixed top-4 left-4 z-50 w-11 h-11 flex items-center justify-center rounded-xl shadow-md cursor-pointer"
-        style={{ backgroundColor: "#0f3d2e", color: "#fff" }}
-        onClick={() => setMobileOpen(true)}
-        aria-label="Abrir menu"
-        aria-expanded={mobileOpen}
-      >
-        <Menu size={22} />
-      </button>
-
       {/* Overlay mobile */}
       {mobileOpen && (
         <div
@@ -183,6 +169,31 @@ export function Sidebar() {
       >
         {sidebarContent}
       </aside>
+
+      {/* Aba lateral mobile */}
+      <button
+        className="lg:hidden fixed z-50 flex items-center justify-center cursor-pointer"
+        style={{
+          top: "15%",
+          left: "0px",
+          transform: "translateY(-50%)",
+          width: "20px",
+          height: "56px",
+          backgroundColor: "#0f3d2e",
+          borderRadius: "0 8px 8px 0",
+          color: "#ffc107",
+          transition: "opacity 300ms ease",
+          boxShadow: "2px 0 8px rgba(0,0,0,0.25)",
+          border: "none",
+          opacity: mobileOpen ? 0 : 1,
+          pointerEvents: mobileOpen ? "none" : "auto",
+        }}
+        onClick={() => setMobileOpen(true)}
+        aria-label="Abrir menu"
+        aria-expanded={mobileOpen}
+      >
+        <ChevronRight size={14} strokeWidth={3} />
+      </button>
 
       {/* Sidebar desktop (fixo) */}
       <aside
