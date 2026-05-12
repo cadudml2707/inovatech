@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 /* ============================================================
    AgroAmazônia Inteligente — Design Tokens
    ============================================================ */
@@ -83,6 +84,66 @@
 }
 
 /* ============================================================
+   Tokens Semânticos — Modo Claro e Escuro
+   ============================================================ */
+
+@layer base {
+  :root {
+    --bg-page:       #f7f8f5;
+    --bg-card:       #ffffff;
+    --bg-card-inner: #f7f8f5;
+    --bg-highlight:  #f0faf0;
+    --bg-sand:       #f5efe0;
+
+    --text-primary:   #1a1a1a;
+    --text-secondary: #5a5f57;
+    --text-muted:     #8a8f87;
+
+    --border:        #e8eae6;
+    --border-strong: #c8ccc6;
+
+    /* Alert backgrounds */
+    --alert-safe-bg:        #e8f5e9;
+    --alert-safe-border:    #a5d6a7;
+    --alert-caution-bg:     #fffde7;
+    --alert-caution-border: #fff176;
+    --alert-warning-bg:     #fff3e0;
+    --alert-warning-border: #ffcc80;
+    --alert-danger-bg:      #ffebee;
+    --alert-danger-border:  #ef9a9a;
+    --alert-info-bg:        #e3f2fd;
+    --alert-info-border:    #90caf9;
+  }
+
+  .dark {
+    --bg-page:       #0d1a12;
+    --bg-card:       #172a1f;
+    --bg-card-inner: #1e3328;
+    --bg-highlight:  #1e3828;
+    --bg-sand:       #2a3020;
+
+    --text-primary:   #e8eae6;
+    --text-secondary: #a0a89c;
+    --text-muted:     #6b7569;
+
+    --border:        #2d4235;
+    --border-strong: #3d5446;
+
+    /* Alert backgrounds (dark — semi-transparentes sobre card escuro) */
+    --alert-safe-bg:        rgba(46, 125, 50, 0.18);
+    --alert-safe-border:    rgba(165, 214, 167, 0.28);
+    --alert-caution-bg:     rgba(249, 168, 37, 0.14);
+    --alert-caution-border: rgba(255, 241, 118, 0.25);
+    --alert-warning-bg:     rgba(239, 108, 0, 0.14);
+    --alert-warning-border: rgba(255, 204, 128, 0.25);
+    --alert-danger-bg:      rgba(198, 40, 40, 0.18);
+    --alert-danger-border:  rgba(239, 154, 154, 0.28);
+    --alert-info-bg:        rgba(25, 118, 210, 0.16);
+    --alert-info-border:    rgba(144, 202, 249, 0.28);
+  }
+}
+
+/* ============================================================
    Base / Reset
    ============================================================ */
 
@@ -97,11 +158,12 @@ html {
 }
 
 body {
-  background-color: var(--color-neutral-100);
-  color: var(--color-neutral-800);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 /* ============================================================
@@ -110,9 +172,10 @@ body {
 
 /* Cards */
 .card {
-  background: #fff;
+  background: var(--bg-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-sm);
+  transition: background-color 200ms ease, box-shadow 200ms ease;
 }
 
 .card-hover:hover {
@@ -157,17 +220,17 @@ body {
   padding: 0 1.5rem;
   border-radius: var(--radius-btn);
   background-color: transparent;
-  color: var(--color-forest-900);
+  color: var(--text-primary);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  border: 2px solid var(--color-forest-900);
+  border: 2px solid var(--border-strong);
   transition: background-color 150ms ease-out;
   touch-action: manipulation;
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-leaf-100);
+  background-color: var(--bg-highlight);
 }
 
 /* Tags / Pílulas */
@@ -181,8 +244,26 @@ body {
   font-weight: 500;
 }
 
-.tag-safe     { background: var(--color-safe-100);    color: var(--color-safe-600); }
-.tag-caution  { background: var(--color-caution-100); color: var(--color-caution-600); }
-.tag-warning  { background: var(--color-warning-100); color: var(--color-warning-600); }
-.tag-danger   { background: var(--color-danger-100);  color: var(--color-danger-600); }
-.tag-info     { background: var(--color-info-100);    color: var(--color-info-600); }
+.tag-safe    { background: var(--alert-safe-bg);    color: var(--color-safe-600); }
+.tag-caution { background: var(--alert-caution-bg); color: var(--color-caution-600); }
+.tag-warning { background: var(--alert-warning-bg); color: var(--color-warning-600); }
+.tag-danger  { background: var(--alert-danger-bg);  color: var(--color-danger-600); }
+.tag-info    { background: var(--alert-info-bg);    color: var(--color-info-600); }
+
+/* ============================================================
+   shadcn Select — estados interativos
+   ============================================================ */
+
+.select-item[data-highlighted] {
+  background-color: var(--bg-highlight);
+  outline: none;
+}
+
+.dark .select-item[data-highlighted] {
+  background-color: var(--bg-highlight);
+}
+
+.select-content {
+  animation-duration: 150ms;
+  animation-timing-function: ease-out;
+}

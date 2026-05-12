@@ -49,6 +49,20 @@ const LEVEL_COLORS: Record<string, string> = {
   danger:  "#c62828",
 };
 
+const LEVEL_BG_VARS: Record<string, string> = {
+  safe:    "var(--alert-safe-bg)",
+  caution: "var(--alert-caution-bg)",
+  warning: "var(--alert-warning-bg)",
+  danger:  "var(--alert-danger-bg)",
+};
+
+const LEVEL_BORDER_VARS: Record<string, string> = {
+  safe:    "var(--alert-safe-border)",
+  caution: "var(--alert-caution-border)",
+  warning: "var(--alert-warning-border)",
+  danger:  "var(--alert-danger-border)",
+};
+
 export function RiskSemaphore({ assessment }: RiskSemaphoreProps) {
   const config = LEVEL_CONFIG[assessment.level];
   const activeIndex = ALL_LEVELS.indexOf(assessment.level);
@@ -60,7 +74,7 @@ export function RiskSemaphore({ assessment }: RiskSemaphoreProps) {
       aria-label={`Semáforo de risco: ${assessment.label}`}
       role="status"
     >
-      <h2 className="text-xl font-bold" style={{ color: "#1a1a1a" }}>
+      <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
         Semáforo de Risco
       </h2>
 
@@ -80,7 +94,7 @@ export function RiskSemaphore({ assessment }: RiskSemaphoreProps) {
           >
             {assessment.label}
           </p>
-          <p className="text-base mt-1" style={{ color: "#5a5f57" }}>
+          <p className="text-base mt-1" style={{ color: "var(--text-secondary)" }}>
             {assessment.description}
           </p>
         </div>
@@ -89,7 +103,7 @@ export function RiskSemaphore({ assessment }: RiskSemaphoreProps) {
       {/* Semáforo visual (4 níveis) */}
       <div
         className="flex items-center gap-2 pt-4"
-        style={{ borderTop: "1px solid #e8eae6" }}
+        style={{ borderTop: "1px solid var(--border)" }}
         role="presentation"
         aria-hidden="true"
       >
@@ -99,14 +113,14 @@ export function RiskSemaphore({ assessment }: RiskSemaphoreProps) {
               className="w-full h-3 rounded-full transition-all duration-300"
               style={{
                 backgroundColor:
-                  i <= activeIndex ? LEVEL_COLORS[level] : "#e8eae6",
-                opacity: i <= activeIndex ? 1 : 0.4,
+                  i <= activeIndex ? LEVEL_COLORS[level] : "var(--border)",
+                opacity: i <= activeIndex ? 1 : 0.5,
               }}
             />
             <span
               className="text-xs font-medium"
               style={{
-                color: i === activeIndex ? LEVEL_COLORS[level] : "#8a8f87",
+                color: i === activeIndex ? LEVEL_COLORS[level] : "var(--text-muted)",
                 fontWeight: i === activeIndex ? 700 : 400,
               }}
             >
@@ -121,8 +135,8 @@ export function RiskSemaphore({ assessment }: RiskSemaphoreProps) {
         <div
           className="flex items-start gap-3 p-3 rounded-xl text-sm"
           style={{
-            backgroundColor: assessment.bgColor,
-            border: `1px solid ${assessment.borderColor}`,
+            backgroundColor: LEVEL_BG_VARS[assessment.level],
+            border: `1px solid ${LEVEL_BORDER_VARS[assessment.level]}`,
           }}
         >
           <AlertTriangle size={18} color={assessment.color} className="flex-shrink-0 mt-0.5" aria-hidden="true" />

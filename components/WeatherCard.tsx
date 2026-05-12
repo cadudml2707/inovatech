@@ -48,16 +48,16 @@ export function WeatherCard({ current, locationName, updatedAt }: WeatherCardPro
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <MapPin size={16} color="#8a8f87" />
-            <p className="text-sm font-medium" style={{ color: "#5a5f57" }}>
+            <MapPin size={16} style={{ color: "var(--text-muted)" }} />
+            <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>
               {locationName}
             </p>
           </div>
-          <h2 className="text-xl font-bold" style={{ color: "#1a1a1a" }}>
+          <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
             Clima Agora
           </h2>
           {updatedAt && (
-            <p className="text-xs mt-0.5" style={{ color: "#8a8f87" }}>
+            <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
               Atualizado: {updatedAt}
             </p>
           )}
@@ -71,15 +71,15 @@ export function WeatherCard({ current, locationName, updatedAt }: WeatherCardPro
       <div>
         <p
           className="font-bold leading-none"
-          style={{ fontSize: "clamp(52px, 10vw, 72px)", color: "#0f3d2e" }}
+          style={{ fontSize: "clamp(52px, 10vw, 72px)", color: "var(--text-primary)" }}
           aria-label={`${current.temperature} graus Celsius`}
         >
           {current.temperature}
-          <span className="text-3xl font-semibold" style={{ color: "#5a5f57" }}>
+          <span className="text-3xl font-semibold" style={{ color: "var(--text-secondary)" }}>
             °C
           </span>
         </p>
-        <p className="text-lg mt-1 font-medium" style={{ color: "#2c2c2c" }}>
+        <p className="text-lg mt-1 font-medium" style={{ color: "var(--text-primary)" }}>
           {description}
         </p>
       </div>
@@ -87,7 +87,7 @@ export function WeatherCard({ current, locationName, updatedAt }: WeatherCardPro
       {/* Métricas secundárias */}
       <div
         className="grid grid-cols-3 gap-3 pt-4"
-        style={{ borderTop: "1px solid #e8eae6" }}
+        style={{ borderTop: "1px solid var(--border)" }}
       >
         <MetricItem
           icon={<Droplets size={20} color="#2e86ab" />}
@@ -95,7 +95,7 @@ export function WeatherCard({ current, locationName, updatedAt }: WeatherCardPro
           label="Umidade"
         />
         <MetricItem
-          icon={<Wind size={20} color="#5a5f57" />}
+          icon={<Wind size={20} style={{ color: "var(--text-secondary)" }} />}
           value={`${current.windSpeed} km/h`}
           label="Vento"
         />
@@ -121,10 +121,10 @@ function MetricItem({
   return (
     <div className="flex flex-col items-center gap-1 text-center">
       <div aria-hidden="true">{icon}</div>
-      <p className="font-bold text-base" style={{ color: "#1a1a1a" }}>
+      <p className="font-bold text-base" style={{ color: "var(--text-primary)" }}>
         {value}
       </p>
-      <p className="text-xs" style={{ color: "#8a8f87" }}>
+      <p className="text-xs" style={{ color: "var(--text-muted)" }}>
         {label}
       </p>
     </div>

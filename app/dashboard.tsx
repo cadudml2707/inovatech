@@ -35,7 +35,7 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
     return (
       <div className="p-6 lg:p-8 flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <RefreshCw size={48} color="#ef6c00" />
-        <p className="text-lg font-semibold" style={{ color: "#1a1a1a" }}>
+        <p className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
           {error}
         </p>
         <a
@@ -86,10 +86,10 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
         <div>
-          <h1 className="text-3xl font-bold" style={{ color: "#1a1a1a" }}>
+          <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary)" }}>
             Painel do Produtor
           </h1>
-          <p className="mt-1 capitalize" style={{ color: "#5a5f57" }}>
+          <p className="mt-1 capitalize" style={{ color: "var(--text-secondary)" }}>
             {dateLabel}
           </p>
         </div>
@@ -104,8 +104,8 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
         <div
           className="flex items-center gap-4 p-4 rounded-2xl"
           style={{
-            backgroundColor: "#ffebee",
-            border: "1px solid #ef9a9a",
+            backgroundColor: "var(--alert-danger-bg)",
+            border: "1px solid var(--alert-danger-border)",
           }}
           role="alert"
           aria-live="assertive"
@@ -145,7 +145,7 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
       {/* Footer */}
       <footer
         className="text-center text-xs py-4"
-        style={{ color: "#8a8f87", borderTop: "1px solid #e8eae6" }}
+        style={{ color: "var(--text-muted)", borderTop: "1px solid var(--border)" }}
       >
         <p>
           Dados fornecidos por{" "}
@@ -154,7 +154,9 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
           </span>{" "}
           · Atualizado às {updatedAt} (horário de Manaus)
         </p>
-        <p className="mt-1">AgroAmazônia Inteligente — ajudando produtores rurais com informação climática</p>
+        <p className="mt-1" style={{ color: "var(--text-muted)" }}>
+          AgroAmazônia Inteligente — ajudando produtores rurais com informação climática
+        </p>
       </footer>
     </div>
   );

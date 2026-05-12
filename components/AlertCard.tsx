@@ -19,29 +19,29 @@ const LEVEL_CONFIG: Record<
   safe: {
     icon: <Info size={22} strokeWidth={1.5} />,
     color: "#2e7d32",
-    bgColor: "#e8f5e9",
-    borderColor: "#a5d6a7",
+    bgColor: "var(--alert-safe-bg)",
+    borderColor: "var(--alert-safe-border)",
     label: "Informação",
   },
   caution: {
     icon: <Info size={22} strokeWidth={1.5} />,
     color: "#f9a825",
-    bgColor: "#fffde7",
-    borderColor: "#fff176",
+    bgColor: "var(--alert-caution-bg)",
+    borderColor: "var(--alert-caution-border)",
     label: "Atenção",
   },
   warning: {
     icon: <AlertTriangle size={22} strokeWidth={1.5} />,
     color: "#ef6c00",
-    bgColor: "#fff3e0",
-    borderColor: "#ffcc80",
+    bgColor: "var(--alert-warning-bg)",
+    borderColor: "var(--alert-warning-border)",
     label: "Alerta",
   },
   danger: {
     icon: <ShieldAlert size={22} strokeWidth={1.5} />,
     color: "#c62828",
-    bgColor: "#ffebee",
-    borderColor: "#ef9a9a",
+    bgColor: "var(--alert-danger-bg)",
+    borderColor: "var(--alert-danger-border)",
     label: "Perigo",
   },
 };
@@ -85,12 +85,12 @@ function SingleAlert({ alert }: { alert: Alert }) {
             >
               {cfg.label}
             </span>
-            <p className="font-bold text-base mt-1" style={{ color: "#1a1a1a" }}>
+            <p className="font-bold text-base mt-1" style={{ color: "var(--text-primary)" }}>
               {alert.title}
             </p>
           </div>
         </div>
-        <p className="text-sm mt-1" style={{ color: "#5a5f57" }}>
+        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
           {alert.description}
         </p>
 
@@ -120,7 +120,7 @@ export function AlertCard({ alerts }: AlertCardProps) {
       >
         <div
           className="w-16 h-16 rounded-2xl flex items-center justify-center"
-          style={{ backgroundColor: "#e8f5e9" }}
+          style={{ backgroundColor: "var(--alert-safe-bg)" }}
           aria-hidden="true"
         >
           <Info size={32} color="#2e7d32" />
@@ -129,7 +129,7 @@ export function AlertCard({ alerts }: AlertCardProps) {
           <p className="font-bold text-lg" style={{ color: "#2e7d32" }}>
             Sem alertas agora
           </p>
-          <p className="text-sm mt-1" style={{ color: "#5a5f57" }}>
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
             Condições favoráveis. Continue acompanhando a previsão.
           </p>
         </div>
@@ -140,7 +140,7 @@ export function AlertCard({ alerts }: AlertCardProps) {
   return (
     <div className="card p-6" style={{ borderLeft: "4px solid #ef6c00" }}>
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-xl font-bold" style={{ color: "#1a1a1a" }}>
+        <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
           Alertas Ativos
         </h2>
         <span

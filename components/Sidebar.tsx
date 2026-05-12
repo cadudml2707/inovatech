@@ -12,6 +12,7 @@ import {
   X,
   Menu,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -84,7 +85,7 @@ export function Sidebar() {
         </div>
         {/* Fechar no mobile */}
         <button
-          className="ml-auto lg:hidden text-white/60 hover:text-white"
+          className="ml-auto lg:hidden text-white/60 hover:text-white cursor-pointer"
           onClick={() => setMobileOpen(false)}
           aria-label="Fechar menu"
         >
@@ -111,8 +112,17 @@ export function Sidebar() {
         ))}
       </nav>
 
-      {/* CTA Técnico */}
-      <div className="p-4">
+      {/* Theme Toggle + CTA */}
+      <div className="p-4 flex flex-col gap-3">
+        {/* Toggle de tema */}
+        <div className="flex items-center justify-between px-1">
+          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
+            Aparência
+          </span>
+          <ThemeToggle />
+        </div>
+
+        {/* CTA Técnico */}
         <button
           className="w-full flex items-center justify-between gap-2 px-4 py-4 rounded-xl font-semibold text-sm transition-all duration-150 cursor-pointer"
           style={{
@@ -136,7 +146,7 @@ export function Sidebar() {
     <>
       {/* Botão hamburguer mobile */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 w-11 h-11 flex items-center justify-center rounded-xl shadow-md"
+        className="lg:hidden fixed top-4 left-4 z-50 w-11 h-11 flex items-center justify-center rounded-xl shadow-md cursor-pointer"
         style={{ backgroundColor: "#0f3d2e", color: "#fff" }}
         onClick={() => setMobileOpen(true)}
         aria-label="Abrir menu"

@@ -49,7 +49,7 @@ function precipitationColor(prob: number): string {
 export function ForecastCard({ daily }: ForecastCardProps) {
   return (
     <div className="card p-6" style={{ borderLeft: "4px solid #4caf50" }}>
-      <h2 className="text-xl font-bold mb-5" style={{ color: "#1a1a1a" }}>
+      <h2 className="text-xl font-bold mb-5" style={{ color: "var(--text-primary)" }}>
         Previsão — Próximos 7 Dias
       </h2>
 
@@ -63,7 +63,7 @@ export function ForecastCard({ daily }: ForecastCardProps) {
               key={day.date}
               className="flex items-center gap-3 py-3 rounded-xl px-3 transition-colors duration-150"
               style={{
-                backgroundColor: i === 0 ? "#f0faf0" : "transparent",
+                backgroundColor: i === 0 ? "var(--bg-highlight)" : "transparent",
                 minHeight: "56px",
               }}
               role="listitem"
@@ -71,10 +71,10 @@ export function ForecastCard({ daily }: ForecastCardProps) {
             >
               {/* Dia */}
               <div className="w-16 flex-shrink-0">
-                <p className="font-semibold text-sm" style={{ color: "#1a1a1a" }}>
+                <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>
                   {dayName}
                 </p>
-                <p className="text-xs" style={{ color: "#8a8f87" }}>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                   {date}
                 </p>
               </div>
@@ -101,12 +101,12 @@ export function ForecastCard({ daily }: ForecastCardProps) {
 
               {/* Barra de temperatura */}
               <div className="flex-1 flex items-center gap-2">
-                <span className="text-sm tabular-nums" style={{ color: "#8a8f87", minWidth: "32px" }}>
+                <span className="text-sm tabular-nums" style={{ color: "var(--text-muted)", minWidth: "32px" }}>
                   {day.tempMin}°
                 </span>
                 <div
                   className="flex-1 h-2 rounded-full overflow-hidden"
-                  style={{ backgroundColor: "#e8eae6" }}
+                  style={{ backgroundColor: "var(--border)" }}
                   role="presentation"
                 >
                   <div
@@ -119,7 +119,7 @@ export function ForecastCard({ daily }: ForecastCardProps) {
                     }}
                   />
                 </div>
-                <span className="text-sm font-semibold tabular-nums" style={{ color: "#1a1a1a", minWidth: "32px", textAlign: "right" }}>
+                <span className="text-sm font-semibold tabular-nums" style={{ color: "var(--text-primary)", minWidth: "32px", textAlign: "right" }}>
                   {day.tempMax}°
                 </span>
               </div>
@@ -129,7 +129,7 @@ export function ForecastCard({ daily }: ForecastCardProps) {
       </div>
 
       {/* Legenda */}
-      <p className="text-xs mt-3" style={{ color: "#8a8f87" }}>
+      <p className="text-xs mt-3" style={{ color: "var(--text-muted)" }}>
         % = chance de chuva · Barra = variação de temperatura
       </p>
     </div>

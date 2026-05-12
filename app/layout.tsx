@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Sidebar } from "@/components/Sidebar";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,19 +22,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR" className={inter.variable} suppressHydrationWarning>
       <body>
-        <div className="flex min-h-dvh">
-          <Sidebar />
-          <main
-            className="flex-1 min-w-0"
-            id="main-content"
-            tabIndex={-1}
-            aria-label="Conteúdo principal"
-          >
-            {children}
-          </main>
-        </div>
+        <ThemeProvider>
+          <div className="flex min-h-dvh">
+            <Sidebar />
+            <main
+              className="flex-1 min-w-0"
+              id="main-content"
+              tabIndex={-1}
+              aria-label="Conteúdo principal"
+            >
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
