@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   LayoutDashboard,
   Bell,
-  Sprout,
+  CalendarDays,
   BookOpen,
   MessageCircle,
   Leaf,
@@ -17,46 +19,52 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 interface NavItem {
   icon: React.ReactNode;
   label: string;
-  active?: boolean;
+  href: string;
 }
 
 const NAV_GROUPS = [
   {
     label: "Meu Painel",
     items: [
-      { icon: <LayoutDashboard size={22} />, label: "Dashboard", active: true },
+      { icon: <LayoutDashboard size={22} />, label: "Dashboard", href: "/" },
     ],
   },
   {
     label: "Monitoramento",
     items: [
-      { icon: <Bell size={22} />, label: "Alertas" },
-      { icon: <Sprout size={22} />, label: "Plantio" },
+      { icon: <Bell size={22} />, label: "Alertas", href: "/" },
+      { icon: <CalendarDays size={22} />, label: "Calendário Agrícola", href: "/calendario-agricola" },
     ],
   },
   {
     label: "Conhecimento",
     items: [
-      { icon: <BookOpen size={22} />, label: "Aprender" },
+      { icon: <BookOpen size={22} />, label: "Aprender", href: "/" },
     ],
   },
 ];
 
-function NavItemComponent({ item }: { item: NavItem }) {
+function NavItemComponent({ item, onClick }: { item: NavItem; onClick?: () => void }) {
+  const pathname = usePathname();
+  const isActive = pathname === item.href;
+
   return (
-    <button
+    <Link
+      href={item.href}
+      onClick={onClick}
       className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-150 text-left cursor-pointer"
       style={{
-        backgroundColor: item.active ? "rgba(76,175,80,0.18)" : "transparent",
-        color: item.active ? "#a5d6a7" : "rgba(255,255,255,0.75)",
-        borderLeft: item.active ? "3px solid #ffc107" : "3px solid transparent",
-        fontWeight: item.active ? 600 : 400,
+        backgroundColor: isActive ? "rgba(76,175,80,0.18)" : "transparent",
+        color: isActive ? "#a5d6a7" : "rgba(255,255,255,0.75)",
+        borderLeft: isActive ? "3px solid #ffc107" : "3px solid transparent",
+        fontWeight: isActive ? 600 : 400,
+        textDecoration: "none",
       }}
-      aria-current={item.active ? "page" : undefined}
+      aria-current={isActive ? "page" : undefined}
     >
       <span className="flex-shrink-0">{item.icon}</span>
       <span className="text-base">{item.label}</span>
-    </button>
+    </Link>
   );
 }
 
@@ -105,7 +113,7 @@ export function Sidebar() {
             </p>
             <div className="space-y-1">
               {group.items.map((item) => (
-                <NavItemComponent key={item.label} item={item} />
+                <NavItemComponent key={item.label} item={item} onClick={() => setMobileOpen(false)} />
               ))}
             </div>
           </div>
