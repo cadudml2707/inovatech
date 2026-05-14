@@ -11,6 +11,7 @@ import {
   Leaf,
   ChevronRight,
   X,
+  LogOut,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -126,6 +127,25 @@ export function Sidebar() {
           </span>
           <ThemeToggle />
         </div>
+
+        {/* Sair */}
+        <button
+          onClick={() => { window.location.href = "/"; }}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-150 cursor-pointer"
+          style={{ color: "rgba(255,255,255,0.55)", backgroundColor: "transparent" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.07)";
+            e.currentTarget.style.color = "#fff";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+            e.currentTarget.style.color = "rgba(255,255,255,0.55)";
+          }}
+          aria-label="Sair"
+        >
+          <LogOut size={18} />
+          <span>Sair</span>
+        </button>
 
         {/* CTA Técnico */}
         <button

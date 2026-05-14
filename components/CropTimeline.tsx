@@ -95,9 +95,9 @@ function MonthCard({
               className="aspect-square flex items-center justify-center rounded"
               style={{
                 fontSize: "7px",
-                color: d ? scheme.header : "transparent",
-                fontWeight: 500,
-                backgroundColor: d ? "rgba(255,255,255,0.5)" : "transparent",
+                color: d ? "#111827" : "transparent",
+                fontWeight: 600,
+                backgroundColor: d ? "rgba(255,255,255,0.82)" : "transparent",
               }}
             >
               {d ?? ""}

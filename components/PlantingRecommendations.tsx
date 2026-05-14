@@ -1,10 +1,10 @@
 import { Sprout } from "lucide-react";
-import { CROPS } from "@/data/crops";
 import { fetchAllOpenFarmCrops } from "@/services/openFarmService";
 import { calcFavorableConditions } from "@/utils/cropConditions";
 import { getCropMonthStatus } from "@/utils/cropRules";
 import { PlantingCard } from "@/components/PlantingCard";
 import type { CurrentWeather } from "@/services/weatherService";
+import { CROPS } from "@/data/crops";
 
 interface PlantingRecommendationsProps {
   weather: CurrentWeather;

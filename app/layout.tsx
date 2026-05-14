@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Sidebar } from "@/components/Sidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -11,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AgroAmazônia Inteligente — Dashboard",
+  title: "AgroAmazônia Inteligente",
   description:
     "Plataforma de monitoramento climático para produtores rurais da Amazônia. Previsão do tempo, alertas de risco e recomendações de plantio.",
 };
@@ -24,19 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={inter.variable} suppressHydrationWarning>
       <body>
-        <ThemeProvider>
-          <div className="flex min-h-dvh">
-            <Sidebar />
-            <main
-              className="flex-1 min-w-0"
-              id="main-content"
-              tabIndex={-1}
-              aria-label="Conteúdo principal"
-            >
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
