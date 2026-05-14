@@ -40,6 +40,8 @@ CLAUDE.md
 AGENTS.md
 .agents
 .plans
+.codex
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

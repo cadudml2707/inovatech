@@ -25,7 +25,7 @@ const NAV_GROUPS = [
   {
     label: "Meu Painel",
     items: [
-      { icon: <LayoutDashboard size={22} />, label: "Dashboard", href: "/" },
+      { icon: <LayoutDashboard size={22} />, label: "Dashboard", href: "/dashboard" },
     ],
   },
   {
