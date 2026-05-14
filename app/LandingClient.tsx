@@ -140,7 +140,7 @@ function Hero() {
       style={{ background: "#0a2a1e" }}
     >
       <video
-        src="/video_landing_page.mp4"
+        src="https://res.cloudinary.com/dpjp0lqhm/video/upload/video_landing_page_hcduee.mp4"
         autoPlay
         muted
         loop

@@ -164,7 +164,7 @@ export default function LoginClient() {
       {/* ── Painel direito — Vídeo ── */}
       <div className="hidden lg:block lg:flex-1 relative overflow-hidden">
         <video
-          src="/13795748_1920_1080_60fps.mp4"
+          src="https://res.cloudinary.com/dpjp0lqhm/video/upload/13795748_1920_1080_60fps_xow7ok.mp4"
           autoPlay
           muted
           loop
