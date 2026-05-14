@@ -51,7 +51,7 @@ function SingleAlert({ alert }: { alert: Alert }) {
 
   return (
     <div
-      className="flex gap-4 p-4 rounded-2xl"
+      className="flex gap-3 p-3 rounded-2xl"
       style={{
         backgroundColor: cfg.bgColor,
         border: `1px solid ${cfg.borderColor}`,
@@ -61,7 +61,7 @@ function SingleAlert({ alert }: { alert: Alert }) {
     >
       {/* Ícone */}
       <div
-        className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+        className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center"
         style={{ backgroundColor: cfg.color, color: "#fff" }}
         aria-hidden="true"
       >
@@ -70,39 +70,37 @@ function SingleAlert({ alert }: { alert: Alert }) {
 
       {/* Conteúdo */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <span
-              className="tag text-xs mb-1"
-              style={{
-                backgroundColor: cfg.color,
-                color: "#fff",
-                borderRadius: "20px",
-                padding: "2px 8px",
-                fontWeight: 600,
-                display: "inline-block",
-              }}
-            >
-              {cfg.label}
-            </span>
-            <p className="font-bold text-base mt-1" style={{ color: "var(--text-primary)" }}>
-              {alert.title}
-            </p>
-          </div>
+        <div className="flex items-center gap-2 mb-0.5">
+          <span
+            className="text-xs"
+            style={{
+              backgroundColor: cfg.color,
+              color: "#fff",
+              borderRadius: "20px",
+              padding: "1px 7px",
+              fontWeight: 600,
+              display: "inline-block",
+            }}
+          >
+            {cfg.label}
+          </span>
+          <p className="font-bold text-sm" style={{ color: "var(--text-primary)" }}>
+            {alert.title}
+          </p>
         </div>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-xs" style={{ color: "var(--text-secondary)", lineHeight: "1.4" }}>
           {alert.description}
         </p>
 
         {/* Ação recomendada */}
         <div
-          className="flex items-center gap-2 mt-3 p-3 rounded-xl cursor-pointer hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 mt-2 px-3 py-1.5 rounded-xl cursor-pointer hover:opacity-90 transition-opacity"
           style={{ backgroundColor: cfg.color }}
         >
-          <p className="text-sm font-semibold text-white flex-1">
+          <p className="text-xs font-semibold text-white flex-1">
             {alert.action}
           </p>
-          <ChevronRight size={16} color="#fff" aria-hidden="true" />
+          <ChevronRight size={14} color="#fff" aria-hidden="true" />
         </div>
       </div>
     </div>
@@ -113,23 +111,23 @@ export function AlertCard({ alerts }: AlertCardProps) {
   if (alerts.length === 0) {
     return (
       <div
-        className="card p-6 flex flex-col items-center gap-3 text-center"
+        className="card p-4 flex items-center gap-3"
         style={{ borderLeft: "4px solid #2e7d32" }}
         role="status"
         aria-label="Nenhum alerta ativo"
       >
         <div
-          className="w-16 h-16 rounded-2xl flex items-center justify-center"
+          className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
           style={{ backgroundColor: "var(--alert-safe-bg)" }}
           aria-hidden="true"
         >
-          <Info size={32} color="#2e7d32" />
+          <Info size={22} color="#2e7d32" />
         </div>
         <div>
-          <p className="font-bold text-lg" style={{ color: "#2e7d32" }}>
+          <p className="font-bold text-base" style={{ color: "#2e7d32" }}>
             Sem alertas agora
           </p>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             Condições favoráveis. Continue acompanhando a previsão.
           </p>
         </div>
@@ -138,13 +136,13 @@ export function AlertCard({ alerts }: AlertCardProps) {
   }
 
   return (
-    <div className="card p-6" style={{ borderLeft: "4px solid #ef6c00" }}>
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+    <div className="card p-4" style={{ borderLeft: "4px solid #ef6c00" }}>
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>
           Alertas Ativos
         </h2>
         <span
-          className="font-bold text-sm px-3 py-1 rounded-full"
+          className="font-bold text-xs px-2.5 py-0.5 rounded-full"
           style={{ backgroundColor: "#ef6c00", color: "#fff" }}
           aria-label={`${alerts.length} alertas`}
         >
@@ -152,7 +150,7 @@ export function AlertCard({ alerts }: AlertCardProps) {
         </span>
       </div>
 
-      <div className="flex flex-col gap-4" role="list" aria-label="Lista de alertas">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" role="list" aria-label="Lista de alertas">
         {alerts
           .sort((a, b) => {
             const order: Record<RiskLevel, number> = { danger: 0, warning: 1, caution: 2, safe: 3 };

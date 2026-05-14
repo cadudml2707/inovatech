@@ -1,4 +1,5 @@
 import { RefreshCw, MapPin } from "lucide-react";
+import { Suspense } from "react";
 import {
   fetchWeatherData,
   AMAZON_LOCATIONS,
@@ -8,8 +9,8 @@ import { WeatherCard } from "@/components/WeatherCard";
 import { ForecastCard } from "@/components/ForecastCard";
 import { RiskSemaphore } from "@/components/RiskSemaphore";
 import { AlertCard } from "@/components/AlertCard";
-import { RecommendationCard } from "@/components/RecommendationCard";
 import { LocationSelector } from "@/components/LocationSelector";
+import { PlantingRecommendations } from "@/components/PlantingRecommendations";
 
 interface DashboardProps {
   searchParams?: Promise<{ loc?: string }>;
@@ -136,11 +137,13 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
       {/* Linha 2: Previsão 7 dias */}
       <ForecastCard daily={weatherData.daily} />
 
-      {/* Linha 3: Alertas + Recomendações */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <AlertCard alerts={alerts} />
-        <RecommendationCard recommendations={recommendations} />
-      </div>
+      {/* Linha 3: Alertas */}
+      <AlertCard alerts={alerts} />
+
+      {/* Linha 4: Recomendações de Plantio (OpenFarm) */}
+      <Suspense fallback={<PlantingRecommendationsSkeleton />}>
+        <PlantingRecommendations weather={weatherData.current} />
+      </Suspense>
 
       {/* Footer */}
       <footer
@@ -159,5 +162,18 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
         </p>
       </footer>
     </div>
+  );
+}
+
+function PlantingRecommendationsSkeleton() {
+  return (
+    <section>
+      <div className="h-7 w-56 rounded-lg animate-pulse mb-4" style={{ backgroundColor: "#e8eae6" }} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div key={i} className="rounded-2xl animate-pulse h-44" style={{ backgroundColor: "#e8eae6" }} />
+        ))}
+      </div>
+    </section>
   );
 }
