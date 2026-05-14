@@ -31,11 +31,9 @@ export function CalendarClient() {
       <CropSelector selectedId={selectedId} onChange={setSelectedId} />
 
       {/* Info + Timeline */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 items-stretch">
         <CropInfoCard crop={crop} monthStatus={monthStatus} />
-        <div className="flex flex-col gap-6">
-          <CropTimeline crop={crop} currentMonth={currentMonth} />
-        </div>
+        <CropTimeline crop={crop} currentMonth={currentMonth} />
       </div>
 
       {/* Sustainable recommendations */}

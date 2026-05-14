@@ -16,7 +16,7 @@ export function CropInfoCard({ crop, monthStatus }: CropInfoCardProps) {
   };
 
   return (
-    <div className="card p-5 flex flex-col gap-5">
+    <div className="card p-5 flex flex-col gap-5 h-full">
       {/* Header da cultura */}
       <div className="flex items-start gap-4">
         <div
