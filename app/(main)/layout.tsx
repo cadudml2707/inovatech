@@ -1,5 +1,5 @@
 import { Sidebar } from "@/components/Sidebar";
-import { MockChatbot } from "@/components/MockChatbot";
+import { Chatbot } from "@/components/Chatbot";
 
 export default function MainLayout({
   children,
@@ -17,7 +17,7 @@ export default function MainLayout({
       >
         {children}
       </main>
-      <MockChatbot />
+      <Chatbot />
     </div>
   );
 }

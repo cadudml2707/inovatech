@@ -15,54 +15,16 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "welcome",
     role: "assistant",
-    text: "Olá! Sou o assistente AgroAmazônia. Posso ajudar com clima, alertas, plantio e calendário agrícola.",
+    text: "Olá! Sou o assistente AgroAmazônia. Posso responder com base no contexto da plataforma sobre clima, alertas, plantio e calendário agrícola.",
   },
 ];
 
-function normalizeMessage(message: string) {
-  return message
-    .toLowerCase()
-    .replace(/[áàãâä]/g, "a")
-    .replace(/[éèêë]/g, "e")
-    .replace(/[íìîï]/g, "i")
-    .replace(/[óòõôö]/g, "o")
-    .replace(/[úùûü]/g, "u")
-    .replace(/ç/g, "c");
-}
-
-function getMockReply(message: string) {
-  const normalized = normalizeMessage(message);
-
-  if (/(clima|chuva|temperatura|tempo|previsao|vento|umidade)/.test(normalized)) {
-    return "Confira o card Clima Agora e a previsão dos próximos 7 dias. Eles mostram temperatura, umidade, vento e chance de chuva para apoiar sua decisão no campo.";
-  }
-
-  if (/(alerta|risco|perigo|semaforo|tempestade|seca)/.test(normalized)) {
-    return "Use o Semáforo de Risco para ver a situação geral. Se houver alerta ativo, siga a ação recomendada antes de plantar, colher ou expor equipamentos.";
-  }
-
-  if (/(plantar|plantio|cultura|cultivar|mandioca|acai|milho|cacau|cupuacu|pimenta)/.test(normalized)) {
-    return "As Recomendações de Plantio combinam clima atual, época do ano e culturas amazônicas. Priorize culturas com maior favorabilidade e evite plantio novo com chuva forte prevista.";
-  }
-
-  if (/(calendario|colheita|mes|safra|epoca)/.test(normalized)) {
-    return "No Calendário Agrícola você pode selecionar uma cultura e ver os meses de plantio, colheita e preparação do terreno.";
-  }
-
-  if (/(tecnico|humano|ajuda|suporte|atendimento)/.test(normalized)) {
-    return "Este assistente é uma simulação. Para decisões críticas, fale com um técnico agrícola e use os dados do painel como apoio.";
-  }
-
-  return "Posso ajudar com clima, alertas de risco, recomendações de plantio e calendário agrícola. Tente perguntar, por exemplo: “posso plantar mandioca?” ou “há risco de chuva?”.";
-}
-
-export function MockChatbot() {
+export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [isTyping, setIsTyping] = useState(false);
   const nextId = useRef(1);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -72,36 +34,60 @@ export function MockChatbot() {
     });
   }, [messages, isTyping, isOpen]);
 
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
   function createMessage(role: ChatRole, text: string): ChatMessage {
     const id = `${role}-${nextId.current}`;
     nextId.current += 1;
     return { id, role, text };
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const trimmed = input.trim();
     if (!trimmed || isTyping) return;
 
-    const reply = getMockReply(trimmed);
-    setMessages((current) => [...current, createMessage("user", trimmed)]);
+    const history = messages
+      .filter((message) => message.id !== "welcome")
+      .slice(-8)
+      .map(({ role, text }) => ({ role, text }));
+    const userMessage = createMessage("user", trimmed);
+
+    setMessages((current) => [...current, userMessage]);
     setInput("");
     setIsTyping(true);
 
-    timeoutRef.current = setTimeout(() => {
-      setMessages((current) => [...current, createMessage("assistant", reply)]);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: trimmed,
+          history,
+        }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as {
+        answer?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !data.answer) {
+        throw new Error(data.error ?? "Não foi possível obter resposta da IA agora.");
+      }
+
+      setMessages((current) => [...current, createMessage("assistant", data.answer ?? "")]);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Não foi possível obter resposta da IA agora.";
+
+      setMessages((current) => [...current, createMessage("assistant", message)]);
+    } finally {
       setIsTyping(false);
-      timeoutRef.current = null;
-    }, 650);
+    }
   }
 
   return (
@@ -109,7 +95,7 @@ export function MockChatbot() {
       {isOpen && (
         <section
           aria-label="Chat do assistente AgroAmazônia"
-          className="w-[calc(100vw-2.5rem)] max-w-[360px] overflow-hidden rounded-2xl border shadow-2xl"
+          className="w-[calc(100vw-2.5rem)] max-w-[420px] overflow-hidden rounded-2xl border shadow-2xl"
           style={{
             backgroundColor: "var(--bg-card)",
             borderColor: "var(--border)",
@@ -134,7 +120,7 @@ export function MockChatbot() {
               <div className="min-w-0">
                 <h2 className="truncate text-sm font-bold">Assistente AgroAmazônia</h2>
                 <p className="text-xs" style={{ color: "rgba(255,255,255,0.62)" }}>
-                  Simulação de atendimento
+                  IA com contexto da plataforma
                 </p>
               </div>
             </div>
@@ -151,7 +137,7 @@ export function MockChatbot() {
 
           <div
             ref={messagesRef}
-            className="flex max-h-[420px] min-h-[280px] flex-col gap-3 overflow-y-auto px-4 py-4"
+            className="flex max-h-[520px] min-h-[360px] flex-col gap-3 overflow-y-auto px-4 py-4"
             aria-live="polite"
             style={{ backgroundColor: "var(--bg-card)" }}
           >
@@ -164,7 +150,7 @@ export function MockChatbot() {
                   className={`flex ${isUser ? "justify-end" : "justify-start"}`}
                 >
                   <p
-                    className="max-w-[82%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
+                    className="max-w-[84%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
                     style={{
                       backgroundColor: isUser ? "#2d7a53" : "var(--bg-card-inner)",
                       color: isUser ? "#fff" : "var(--text-secondary)",
