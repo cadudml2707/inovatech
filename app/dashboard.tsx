@@ -1,10 +1,11 @@
 import { RefreshCw, MapPin } from "lucide-react";
+import Link from "next/link";
 import { Suspense } from "react";
 import {
   fetchWeatherData,
   AMAZON_LOCATIONS,
 } from "@/services/weatherService";
-import { assessRisk, generateAlerts, generateRecommendations } from "@/utils/riskRules";
+import { assessRisk, generateAlerts } from "@/utils/riskRules";
 import { WeatherCard } from "@/components/WeatherCard";
 import { ForecastCard } from "@/components/ForecastCard";
 import { RiskSemaphore } from "@/components/RiskSemaphore";
@@ -39,8 +40,8 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
         <p className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
           {error}
         </p>
-        <a
-          href="/"
+        <Link
+          href={`/dashboard?loc=${safeIndex}`}
           className="btn-primary"
           style={{
             backgroundColor: "#f4b400",
@@ -56,14 +57,13 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
         >
           <RefreshCw size={18} />
           Tentar novamente
-        </a>
+        </Link>
       </div>
     );
   }
 
   const risk = assessRisk(weatherData.current, weatherData.daily);
   const alerts = generateAlerts(weatherData.current, weatherData.daily);
-  const recommendations = generateRecommendations(weatherData.current, weatherData.daily);
 
   const now = new Date();
   const updatedAt = now.toLocaleTimeString("pt-BR", {
